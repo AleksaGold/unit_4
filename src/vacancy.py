@@ -1,43 +1,50 @@
-class Vacancies:
+class Vacancy:
     """"Класс для работы с вакансиями"""
 
-    # id: str
+    id: str
     name: str
     published_at: str
+    salary: str
     salary_from: int
     salary_to: int
     currency: str
-    # has_test: bool
-    # requirement: str
+    salary_gross: str
     alternate_url: str
 
-    def __init__(self, name, published_at, salary_from, salary_to, currency, alternate_url):
+    def __init__(self, id, name, published_at, alternate_url, salary):
         """Конструктор для инициализации объекта"""
+        self.id = id
         self.name = name
         self.published_at = published_at
-        self.salary_from = salary_from
-        self.salary_to = salary_to
-        self.currency = currency
         self.alternate_url = alternate_url
+        self.salary = salary
 
-        self.validate_salary_from()
+        self.salary_from = None
+        self.salary_to = None
+        self.salary_currency = None
+        self.salary_gross = None
 
-    def validate_salary_from(self):
+        self.validate_salary()
+
+    def validate_salary(self):
         """
-        Метод валидации нижней границы заработной платы, если значение не указано,
-        то выставляется значение заработной платы - 0
-        :return: установленная заработная плата
+        :return:
         """
-        if not self.salary_from:
-            self.salary_from = 0
-        return self.salary_from
+        if self.salary is None:
+            self.salary = 'Зарплата не указана'
+        else:
+            salary = self.salary
+            self.salary_from = salary['from']
+            self.salary_to = salary['to']
+            self.salary_currency = salary['currency']
+            self.salary_gross = salary['gross']
 
     def __repr__(self):
         """
         Метод для отображения информации об объекте класса в режиме отладки
         :return: отображение информации об объекте класса
         """
-        return f'{self.name}, {self.salary_from}, {self.currency}, {self.alternate_url}'
+        return f'{self.id}, {self.published_at}, {self.name}, {self.salary}, {self.salary_from}, {self.salary_to}, {self.salary_currency}, {self.salary_gross}'
 
     def __gt__(self, other):
         """
@@ -54,3 +61,7 @@ class Vacancies:
         :return: True если зарплата рабочей вакансии меньше, чем зарплата сравниваемой вакансии
         """
         return self.salary_from < other.salary_from
+
+
+
+# написать статик метод для сортировки вакансий
