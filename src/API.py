@@ -24,6 +24,7 @@ class HeadHunterAPI(API):
     __url: str
 
     def __init__(self, url):
+        """Конструктор для инициализации объекта"""
         self.__url = url
 
     @property
@@ -39,6 +40,10 @@ class HeadHunterAPI(API):
         return requests.get(self.__url).status_code == 200
 
     def __str__(self):
+        """
+        Метод для вывода пользователю информации о статусе подключения к API
+        :return: сообщение о статусе подключения
+        """
         if self.connect_to_the_site() is True:
             return f'Подключение выполнено успешно'
         raise KeyError('Введен неверный url адрес для отправки запроса')
