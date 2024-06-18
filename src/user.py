@@ -8,7 +8,6 @@ class User:
     def __init__(self, user_name, filter_words):
         """Конструктор для инициализации объекта"""
         self.user_name = user_name
-        # self.vacancies = []
         self.filter_words = filter_words
         self.vacancies_with_salary = True
         self.__area = 1
